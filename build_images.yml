@@ -1,0 +1,6 @@
+- hosts: all
+  vars:
+  - ubuntu_version: 14.04
+  - inventory: inventory.yml
+  roles:
+  - role: build_galaxy_docker

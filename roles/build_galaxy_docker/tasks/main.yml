@@ -1,0 +1,34 @@
+- name: prepare build dir
+  file: path={{ build_dir }}/{{ item }} state=directory
+  with_items:
+    - docker_ansible_{{ ubuntu_version  }}
+    - docker_ansible_{{ ubuntu_version  }}_galaxy
+
+- name: copy ansible_playbook_wrapper
+  copy: src=ansible-playbook-wrapper dest={{ build_dir }}/docker_ansible_{{ ubuntu_version  }} mode="u+x"
+
+- name: copy playbook and inventory
+  synchronize: src={{ item  }} dest={{ build_dir }}/docker_ansible_{{ ubuntu_version  }}_galaxy rsync_opts="--exclude=.git"
+  with_items:
+    - "{{ playbook }}"
+    - "{{ inventory }}"
+
+- name: prepare ansible dockerfile
+  template: src=ansible_Dockerfile.j2 dest={{ build_dir }}/docker_ansible_{{ ubuntu_version  }}/Dockerfile
+
+- name: prepare galaxy dockerfile
+  template: src=galaxy_Dockerfile.j2 dest={{ build_dir }}/docker_ansible_{{ ubuntu_version  }}_galaxy/Dockerfile
+
+- name: check or build ansible image
+  docker_image: path="{{ build_dir }}/docker_ansible_{{ ubuntu_version  }}" name="docker_ansible_{{ ubuntu_version  }}" state=present
+
+- name: check or build galaxy image
+  docker_image: path="{{ build_dir }}/docker_ansible_{{ ubuntu_version  }}_galaxy" name="docker_ansible_{{ ubuntu_version  }}_galaxy" tag={{ tag }} state=present
+
+- name: build new galaxy image
+  docker_image: path="{{ build_dir }}/docker_ansible_{{ ubuntu_version  }}_galaxy" name="docker_ansible_{{ ubuntu_version  }}_galaxy" tag={{ tag }} state=build
+  when: build_new
+
+- name: build new incremental galaxy image
+  docker_image: path="{{ build_dir }}/docker_ansible_{{ ubuntu_version  }}_galaxy" name="docker_ansible_{{ ubuntu_version  }}_galaxy" tag={{ tag }} state=build
+  when: build_new_incremental

@@ -1,0 +1,7 @@
+ubuntu_version: 14.04
+ubuntu_release: trusty
+build_dir: /tmp
+build_new: true
+tag: latest
+maintainer: Marius van den Beek
+playbook: ansible-artimed
