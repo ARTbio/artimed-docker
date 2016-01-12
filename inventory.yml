@@ -1,28 +1,2 @@
 [artimed]
 localhost
-
-[artimed:vars]
-#install options
-install_galaxy="True"
-install_tools="False"
-run_data_manager="False"
-galaxy_uwsgi_static_conf="True"
-uwsgi_processes=2
-uwsgi_threads=2
-postgresql_version=9.4
-galaxy_data="/home/{{ galaxy_user_name }}/{{ galaxy_user_name }}"
-#galaxy_database="/home/galaxy_database"
-supervisor_postgres_database_path="/etc/postgresql/{{ postgresql_version }}/main"
-#params
-galaxy_user_name="galaxy"
-galaxy_server_dir="/home/{{ galaxy_user_name }}/{{ galaxy_user_name }}"
-galaxy_admin="artimed@gmail.com"
-galaxy_admin_pw="artimed"
-master_api_key=f137d9af2f2065bd8c5fbadf7111494b
-galaxy_admin_api_key=f137d9af2f2065bd8c5fbadf7111494b
-galaxy_tool_list="roles/artimed_extras/files/artimed_tool_list.yaml"
-galaxy_data_managers="data_managers.yaml"
-#persistent params
-galaxy_db="postgresql:///{{ galaxy_user_name }}?host=/var/run/postgresql"
-#galaxy_changeset_id="6a47d2d3a7f27b659e5de5fb1b37c7c1f9d04302"
-galaxy_changeset_id="dev"
