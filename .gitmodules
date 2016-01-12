@@ -1,3 +1,3 @@
 [submodule "ansible-artimed"]
 	path = ansible-artimed
-	url = git@github.com:ARTbio/ansible-artimed.git
+	url = https://github.com/ARTbio/ansible-artimed.git
