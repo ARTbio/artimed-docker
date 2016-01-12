@@ -23,15 +23,15 @@
   template: src=galaxy_Dockerfile.j2 dest={{ build_dir }}/docker_ansible_{{ ubuntu_version  }}_galaxy/Dockerfile
 
 - name: check or build ansible image
-  docker_image: path="{{ build_dir }}/docker_ansible_{{ ubuntu_version  }}" name="docker_ansible_{{ ubuntu_version  }}" state=present
+  docker_image: docker_api_version=auto path="{{ build_dir }}/docker_ansible_{{ ubuntu_version  }}" name="docker_ansible_{{ ubuntu_version  }}" state=present
 
 - name: check or build galaxy image
-  docker_image: path="{{ build_dir }}/docker_ansible_{{ ubuntu_version  }}_galaxy" name="docker_ansible_{{ ubuntu_version  }}_galaxy" tag={{ tag }} state=present
+  docker_image: docker_api_version=auto path="{{ build_dir }}/docker_ansible_{{ ubuntu_version  }}_galaxy" name="docker_ansible_{{ ubuntu_version  }}_galaxy" tag={{ tag }} state=present
 
 - name: build new galaxy image
-  docker_image: path="{{ build_dir }}/docker_ansible_{{ ubuntu_version  }}_galaxy" name="docker_ansible_{{ ubuntu_version  }}_galaxy" tag={{ tag }} state=build
+  docker_image: docker_api_version=auto path="{{ build_dir }}/docker_ansible_{{ ubuntu_version  }}_galaxy" name="docker_ansible_{{ ubuntu_version  }}_galaxy" tag={{ tag }} state=build
   when: build_new
 
 - name: build new incremental galaxy image
-  docker_image: path="{{ build_dir }}/docker_ansible_{{ ubuntu_version  }}_galaxy" name="docker_ansible_{{ ubuntu_version  }}_galaxy" tag={{ tag }} state=build
+  docker_image: docker_api_version=auto path="{{ build_dir }}/docker_ansible_{{ ubuntu_version  }}_galaxy" name="docker_ansible_{{ ubuntu_version  }}_galaxy" tag={{ tag }} state=build
   when: build_new_incremental
