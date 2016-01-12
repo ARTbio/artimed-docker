@@ -18,4 +18,4 @@ before_install:
 
 script:
   - ansible-playbook -i "localhost," -c local build_images.yml
-  - docker -d run -p 8080:80 docker_ansible_14.04
+  - docker run -d -p 8080:80 docker_ansible_14.04
