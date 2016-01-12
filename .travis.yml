@@ -18,5 +18,5 @@ before_install:
   - export BIOBLEND_GALAXY_URL=http://localhost:8080
 
 script:
-  - ansible-playbook -i "localhost," -c local build_images.yml
+  - ansible-playbook -i "localhost," -c local -vvvv build_images.yml
   - docker run -d -p 8080:80 docker_ansible_14.04
