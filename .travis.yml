@@ -13,7 +13,7 @@ git:
 before_install:
   - git submodule update --init --recursive
   - pip install ansible
-  - pip install docker-py
+  - sudo pip install docker-py
   - export BIOBLEND_GALAXY_API_KEY=admin
   - export BIOBLEND_GALAXY_URL=http://localhost:8080
 
