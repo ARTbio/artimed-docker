@@ -5,3 +5,4 @@ build_new: true
 tag: latest
 maintainer: Marius van den Beek
 playbook: ansible-artimed
+build_new_incremental: false
