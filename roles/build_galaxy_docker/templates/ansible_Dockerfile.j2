@@ -24,7 +24,8 @@ RUN echo "===> Adding Ansible's PPA..."  && \
     echo "===> Installing Ansible..."  && \
     apt-get install -y sudo ansible  && \
     \
-    apt-get install -y --no-install-recommends software-properties-common && \
+    apt-get install -y --no-install-recommends \
+    apt-transport-https software-properties-common && \
     \
     echo "===> Removing Ansible PPA..."  && \
     rm -rf /var/lib/apt/lists/*  /etc/apt/sources.list.d/ansible.list  && \
