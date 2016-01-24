@@ -19,9 +19,7 @@ RUN DEBIAN_FRONTEND=noninteractive  apt-get update  && \
     echo "exit 0" > /usr/sbin/policy-rc.d  && \
     \
     apt-get install -y --no-install-recommends \
-    apt-transport-https software-properties-common python-dev python-pip && \
-    \
-    echo "===> Removing Ansible PPA..."  && \
+    apt-transport-https software-properties-common python-dev python-pip
 
 COPY ansible-playbook-wrapper /usr/local/bin/
 
@@ -29,15 +27,15 @@ ONBUILD  RUN  DEBIAN_FRONTEND=noninteractive  apt-get update   && \
               echo "===> Updating TLS certificates..."         && \
               apt-get install -y openssl ca-certificates
 
+RUN pip install ansible
+RUN echo "===> Adding hosts for convenience..."  && \
+    echo '[local]\nlocalhost\n' > /etc/ansible/hosts
+
 ONBUILD  WORKDIR  /tmp
 ONBUILD  COPY  .  /tmp
 ONBUILD  RUN  \
               echo "===> Diagnosis: host information..."  && \
               ansible -c local -m setup all
-
-RUN pip install ansible
-RUN echo "===> Adding hosts for convenience..."  && \
-    echo '[local]\nlocalhost\n' > /etc/ansible/hosts
 
 
 # default command: display Ansible version
