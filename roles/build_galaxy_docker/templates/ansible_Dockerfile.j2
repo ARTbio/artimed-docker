@@ -28,8 +28,6 @@ ONBUILD  RUN  DEBIAN_FRONTEND=noninteractive  apt-get update   && \
               apt-get install -y openssl ca-certificates
 
 RUN pip install ansible
-RUN echo "===> Adding hosts for convenience..."  && \
-    echo '[local]\nlocalhost\n' > /etc/ansible/hosts
 
 ONBUILD  WORKDIR  /tmp
 ONBUILD  COPY  .  /tmp
