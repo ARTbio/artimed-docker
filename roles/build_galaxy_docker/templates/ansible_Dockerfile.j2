@@ -22,10 +22,6 @@ RUN DEBIAN_FRONTEND=noninteractive  apt-get update  && \
     apt-transport-https software-properties-common python-dev python-pip && \
     \
     echo "===> Removing Ansible PPA..."  && \
-    \
-    echo "===> Adding hosts for convenience..."  && \
-    echo '[local]\nlocalhost\n' > /etc/ansible/hosts
-
 
 COPY ansible-playbook-wrapper /usr/local/bin/
 
@@ -40,6 +36,9 @@ ONBUILD  RUN  \
               ansible -c local -m setup all
 
 RUN pip install ansible
+RUN echo "===> Adding hosts for convenience..."  && \
+    echo '[local]\nlocalhost\n' > /etc/ansible/hosts
+
 
 # default command: display Ansible version
 CMD [ "ansible-playbook", "--version" ]
