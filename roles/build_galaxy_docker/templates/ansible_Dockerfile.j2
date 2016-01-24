@@ -19,7 +19,7 @@ RUN DEBIAN_FRONTEND=noninteractive  apt-get update  && \
     echo "exit 0" > /usr/sbin/policy-rc.d  && \
     \
     apt-get install -y --no-install-recommends \
-    apt-transport-https software-properties-common python-dev python-pip
+    apt-transport-https software-properties-common python-dev python-pip build-essential
 
 COPY ansible-playbook-wrapper /usr/local/bin/
 
