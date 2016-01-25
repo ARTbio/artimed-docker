@@ -1,7 +1,4 @@
-FROM docker_ansible_{{ ubuntu_version  }}
-
-# ==> Specify requirements filename;  default = "requirements.yml"
-#ENV REQUIREMENTS  requirements.yml
+FROM ubuntu:{{ ubuntu_version  }}
 
 # ==> Specify playbook filename;      default = "playbook.yml"
 ENV PLAYBOOK      ansible-artimed/galaxy.yml
@@ -9,10 +6,20 @@ ENV PLAYBOOK      ansible-artimed/galaxy.yml
 # ==> Specify inventory filename;     default = "/etc/ansible/hosts"
 ENV INVENTORY     inventory.yml
 
+COPY ansible-playbook-wrapper /usr/local/bin/
+
+RUN  DEBIAN_FRONTEND=noninteractive  apt-get update   && \
+              echo "===> Updating TLS certificates..."         && \
+              apt-get install -y --no-install-recommends openssl \
+              ca-certificates python-dev python-pip build-essential && \
+              pip install ansible
+
+
 # ==> Executing Ansible (with a simple wrapper)...
 ONBUILD  RUN  DEBIAN_FRONTEND=noninteractive  apt-get update   && \
               echo "===> Updating TLS certificates..."         && \
-              apt-get install -y openssl ca-certificates
+              apt-get install -y --no-install-recommends openssl \
+              ca-certificates 
 
 ONBUILD  WORKDIR  /tmp
 ONBUILD  COPY  .  /tmp
